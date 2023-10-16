@@ -33,46 +33,58 @@ import org.springframework.util.Assert;
 @Entity
 class GuestbookEntry {
 
-	private @Id @GeneratedValue Long id;
-	private final String name, text;
-	private final LocalDateTime date;
+    private @Id
+    @GeneratedValue Long id;
+    private final String name, text;
+    private final LocalDateTime date;
+    private int likes;
 
-	/**
-	 * Creates a new {@link GuestbookEntry} for the given name and text.
-	 *
-	 * @param name must not be {@literal null} or empty
-	 * @param text must not be {@literal null} or empty
-	 */
-	public GuestbookEntry(String name, String text) {
+    /**
+     * Creates a new {@link GuestbookEntry} for the given name and text.
+     *
+     * @param name must not be {@literal null} or empty
+     * @param text must not be {@literal null} or empty
+     */
+    public GuestbookEntry(String name, String text) {
 
-		Assert.hasText(name, "Name must not be null or empty!");
-		Assert.hasText(text, "Text must not be null or empty!");
+        Assert.hasText(name, "Name must not be null or empty!");
+        Assert.hasText(text, "Text must not be null or empty!");
 
-		this.name = name;
-		this.text = text;
-		this.date = LocalDateTime.now();
-	}
+        this.name = name;
+        this.text = text;
+        this.date = LocalDateTime.now();
+        this.likes = 0;
+    }
 
-	@SuppressWarnings("unused")
-	private GuestbookEntry() {
-		this.name = null;
-		this.text = null;
-		this.date = null;
-	}
+    @SuppressWarnings("unused")
+    private GuestbookEntry() {
+        this.name = null;
+        this.text = null;
+        this.date = null;
+        this.likes = 0;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public LocalDateTime getDate() {
-		return date;
-	}
+    public LocalDateTime getDate() {
+        return date;
+    }
 
-	public String getText() {
-		return text;
-	}
+    public String getText() {
+        return text;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void increaseLikes() {
+        likes++;
+    }
 }
